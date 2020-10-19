@@ -26,3 +26,19 @@ func InsertPilot(pilot models.Pilot) error {
 	return err
 
 }
+
+//UpdatePilot is a func that's allow you to update a selected pilot
+func UpdatePilot(pilot models.Pilot) error {
+	db, err := DbConnection()
+	if err != nil {
+		panic(err)
+	}
+	pt, er := models.FindPilot(context.Background(), db, pilot.ID)
+	if er != nil {
+		return er
+	}
+	pt.ID = pilot.ID
+	pt.Name = pilot.Name
+	_, errUp := pt.Update(context.Background(), db, boil.Infer())
+	return errUp
+}

@@ -30,6 +30,7 @@ func StartRouters() {
 	e.GET("/pilot/:id", handlers.GetOnePilots)
 	e.POST("/pilot", handlers.CreatePilot)
 	e.DELETE("/pilot/:id", handlers.DeletePilot)
+	e.PUT("/pilot/:id", handlers.UpdatePilot)
 	e.Logger.Print(fmt.Sprintf("Listening on prot: %d\n", conf.Port))
 	e.Logger.Fatal(e.Start(fmt.Sprintf("localhost:%d", conf.Port)))
 }

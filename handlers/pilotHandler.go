@@ -97,3 +97,26 @@ func DeletePilot(c echo.Context) error {
 	}
 	return c.NoContent(http.StatusNoContent)
 }
+
+//UpdatePilot to delete a selected pilot
+func UpdatePilot(c echo.Context) error {
+	ID, _ := strconv.Atoi(c.FormValue("id"))
+	Name := c.FormValue("name")
+	nPilot := new(models.Pilot)
+	nPilot.ID = ID
+	nPilot.Name = Name
+	p := plt{
+		ID:   ID,
+		Name: Name,
+	}
+	er := p.Validate()
+	if er != nil {
+		return c.String(http.StatusBadRequest, "the length must be between 5 and 50")
+	}
+	defer c.Request().Body.Close()
+	errdb := db.UpdatePilot(*nPilot)
+	if errdb != nil {
+		return c.String(http.StatusBadRequest, "Something wrong with dbManager")
+	}
+	return c.JSON(http.StatusOK, "Updated successfully")
+}
