@@ -11,16 +11,15 @@ import (
 	"github.com/ismailraqi/Golang-sqlboiler/db"
 	"github.com/ismailraqi/Golang-sqlboiler/models"
 	"github.com/labstack/echo"
-	"github.com/volatiletech/sqlboiler/v4/boil"
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 )
 
-type pilot struct {
+type plt struct {
 	ID   int    `boil:"id" json:"id" toml:"id" yaml:"id"`
 	Name string `boil:"name" json:"name" toml:"name" yaml:"name"`
 }
 
-func (a pilot) Validate() error {
+func (a plt) Validate() error {
 	return validation.ValidateStruct(&a,
 		// Street cannot be empty, and the length must between 5 and 50
 		validation.Field(&a.Name, validation.Required, validation.Length(5, 50)),
@@ -60,31 +59,9 @@ func GetOnePilots(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, ps)
 }
-func insertPilot(pilot models.Pilot) error {
-	db, err := db.DbConnection()
-	if err != nil {
-		panic(err)
-	}
-	err = pilot.Insert(context.Background(), db, boil.Infer())
-	return err
 
-}
-
-//CreatePilot
+//CreatePilot to create a new pilot
 func CreatePilot(c echo.Context) error {
-	// var body pilot
-	// err := body.Validate()
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	// // bind data given fro user & check if there is an error
-	// if err := c.Bind(&body); err != nil {
-	// 	return err
-	// }
-	// // validates a structs exposed fields & check if there is an error
-	// if err := c.Validate(body); err != nil {
-	// 	return err
-	// }
 	defer c.Request().Body.Close()
 	ID := c.FormValue("id")
 	Name := c.FormValue("name")
@@ -93,14 +70,30 @@ func CreatePilot(c echo.Context) error {
 	if err != nil {
 		fmt.Println(err)
 	}
+	p := plt{
+		ID:   pid,
+		Name: Name,
+	}
+	er := p.Validate()
+	if er != nil {
+		return c.String(http.StatusBadRequest, "the length must be between 5 and 50")
+	}
 	nPilot.ID = pid
 	nPilot.Name = Name
-	t := insertPilot(*nPilot)
+	t := db.InsertPilot(*nPilot)
 	if t != nil {
-		return c.String(http.StatusBadRequest, "please try again somthing wrong")
+		return c.String(http.StatusBadRequest, "error detected please try again :/")
 	}
 	return c.JSON(http.StatusOK, nPilot)
 }
-func DeletePilot() {
 
+//DeletePilot to delete a selected pilot
+func DeletePilot(c echo.Context) error {
+	ctx := context.Background()
+	id, _ := strconv.Atoi(c.Param("id"))
+	_, err := models.Pilots(qm.Where("id=?", id)).DeleteAll(ctx, database)
+	if err != nil {
+		return c.String(http.StatusBadRequest, "error detected please try again :/")
+	}
+	return c.NoContent(http.StatusNoContent)
 }
