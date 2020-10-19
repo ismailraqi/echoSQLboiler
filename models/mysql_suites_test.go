@@ -11,4 +11,6 @@ func TestUpsert(t *testing.T) {
 	t.Run("Languages", testLanguagesUpsert)
 
 	t.Run("Pilots", testPilotsUpsert)
+
+	t.Run("Users", testUsersUpsert)
 }

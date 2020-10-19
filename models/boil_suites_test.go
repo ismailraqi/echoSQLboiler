@@ -15,66 +15,77 @@ func TestParent(t *testing.T) {
 	t.Run("Jets", testJets)
 	t.Run("Languages", testLanguages)
 	t.Run("Pilots", testPilots)
+	t.Run("Users", testUsers)
 }
 
 func TestDelete(t *testing.T) {
 	t.Run("Jets", testJetsDelete)
 	t.Run("Languages", testLanguagesDelete)
 	t.Run("Pilots", testPilotsDelete)
+	t.Run("Users", testUsersDelete)
 }
 
 func TestQueryDeleteAll(t *testing.T) {
 	t.Run("Jets", testJetsQueryDeleteAll)
 	t.Run("Languages", testLanguagesQueryDeleteAll)
 	t.Run("Pilots", testPilotsQueryDeleteAll)
+	t.Run("Users", testUsersQueryDeleteAll)
 }
 
 func TestSliceDeleteAll(t *testing.T) {
 	t.Run("Jets", testJetsSliceDeleteAll)
 	t.Run("Languages", testLanguagesSliceDeleteAll)
 	t.Run("Pilots", testPilotsSliceDeleteAll)
+	t.Run("Users", testUsersSliceDeleteAll)
 }
 
 func TestExists(t *testing.T) {
 	t.Run("Jets", testJetsExists)
 	t.Run("Languages", testLanguagesExists)
 	t.Run("Pilots", testPilotsExists)
+	t.Run("Users", testUsersExists)
 }
 
 func TestFind(t *testing.T) {
 	t.Run("Jets", testJetsFind)
 	t.Run("Languages", testLanguagesFind)
 	t.Run("Pilots", testPilotsFind)
+	t.Run("Users", testUsersFind)
 }
 
 func TestBind(t *testing.T) {
 	t.Run("Jets", testJetsBind)
 	t.Run("Languages", testLanguagesBind)
 	t.Run("Pilots", testPilotsBind)
+	t.Run("Users", testUsersBind)
 }
 
 func TestOne(t *testing.T) {
 	t.Run("Jets", testJetsOne)
 	t.Run("Languages", testLanguagesOne)
 	t.Run("Pilots", testPilotsOne)
+	t.Run("Users", testUsersOne)
 }
 
 func TestAll(t *testing.T) {
 	t.Run("Jets", testJetsAll)
 	t.Run("Languages", testLanguagesAll)
 	t.Run("Pilots", testPilotsAll)
+	t.Run("Users", testUsersAll)
 }
 
 func TestCount(t *testing.T) {
 	t.Run("Jets", testJetsCount)
 	t.Run("Languages", testLanguagesCount)
 	t.Run("Pilots", testPilotsCount)
+	t.Run("Users", testUsersCount)
 }
 
 func TestHooks(t *testing.T) {
 	t.Run("Jets", testJetsHooks)
 	t.Run("Languages", testLanguagesHooks)
 	t.Run("Pilots", testPilotsHooks)
+	t.Run("Users", testUsersHooks)
 }
 
 func TestInsert(t *testing.T) {
@@ -84,6 +95,8 @@ func TestInsert(t *testing.T) {
 	t.Run("Languages", testLanguagesInsertWhitelist)
 	t.Run("Pilots", testPilotsInsert)
 	t.Run("Pilots", testPilotsInsertWhitelist)
+	t.Run("Users", testUsersInsert)
+	t.Run("Users", testUsersInsertWhitelist)
 }
 
 // TestToOne tests cannot be run in parallel
@@ -148,28 +161,33 @@ func TestReload(t *testing.T) {
 	t.Run("Jets", testJetsReload)
 	t.Run("Languages", testLanguagesReload)
 	t.Run("Pilots", testPilotsReload)
+	t.Run("Users", testUsersReload)
 }
 
 func TestReloadAll(t *testing.T) {
 	t.Run("Jets", testJetsReloadAll)
 	t.Run("Languages", testLanguagesReloadAll)
 	t.Run("Pilots", testPilotsReloadAll)
+	t.Run("Users", testUsersReloadAll)
 }
 
 func TestSelect(t *testing.T) {
 	t.Run("Jets", testJetsSelect)
 	t.Run("Languages", testLanguagesSelect)
 	t.Run("Pilots", testPilotsSelect)
+	t.Run("Users", testUsersSelect)
 }
 
 func TestUpdate(t *testing.T) {
 	t.Run("Jets", testJetsUpdate)
 	t.Run("Languages", testLanguagesUpdate)
 	t.Run("Pilots", testPilotsUpdate)
+	t.Run("Users", testUsersUpdate)
 }
 
 func TestSliceUpdateAll(t *testing.T) {
 	t.Run("Jets", testJetsSliceUpdateAll)
 	t.Run("Languages", testLanguagesSliceUpdateAll)
 	t.Run("Pilots", testPilotsSliceUpdateAll)
+	t.Run("Users", testUsersSliceUpdateAll)
 }

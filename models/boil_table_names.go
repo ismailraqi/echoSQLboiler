@@ -8,9 +8,11 @@ var TableNames = struct {
 	Languages      string
 	PilotLanguages string
 	Pilots         string
+	Users          string
 }{
 	Jets:           "jets",
 	Languages:      "languages",
 	PilotLanguages: "pilot_languages",
 	Pilots:         "pilots",
+	Users:          "users",
 }
