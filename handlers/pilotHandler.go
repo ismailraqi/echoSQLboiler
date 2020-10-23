@@ -8,8 +8,8 @@ import (
 	"strconv"
 
 	validation "github.com/go-ozzo/ozzo-validation"
-	"github.com/ismailraqi/Golang-sqlboiler/db"
-	"github.com/ismailraqi/Golang-sqlboiler/models"
+	"github.com/ismailraqi/echoSQLboiler/db"
+	"github.com/ismailraqi/echoSQLboiler/models"
 	"github.com/labstack/echo"
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 )

@@ -1,0 +1,8 @@
+app:
+  name: cliapp
+  version: 1.0.0
+
+default:
+  command_properties:
+    comCrt:
+      log: true  # true or false, true to enable the log
