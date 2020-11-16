@@ -14,6 +14,8 @@ import (
 	"time"
 
 	"github.com/friendsofgo/errors"
+	validation "github.com/go-ozzo/ozzo-validation"
+	"github.com/go-ozzo/ozzo-validation/is"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 	"github.com/volatiletech/sqlboiler/v4/queries"
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
@@ -30,6 +32,14 @@ type User struct {
 
 	R *userR `boil:"-" json:"-" toml:"-" yaml:"-"`
 	L userL  `boil:"-" json:"-" toml:"-" yaml:"-"`
+}
+
+func (user *User) Validate() error {
+	return validation.ValidateStruct(&user,
+		// Street cannot be empty, and the length must between 5 and 50
+		validation.Field(&user.Username, validation.Required, validation.Length(5, 50)),
+		validation.Field(&user.Email, validation.Required, is.Email),
+	)
 }
 
 var UserColumns = struct {
