@@ -5,10 +5,9 @@ import (
 
 	"github.com/ismailraqi/echoSQLboiler/db"
 
+	jwtModelsClaims "github.com/ismailraqi/echoSQLboiler/jwtmodelsclaims"
 	"github.com/ismailraqi/echoSQLboiler/models"
 	"github.com/labstack/echo"
-	jwtModelsClaims "github.com/ismailraqi/echoSQLboiler/jwtmodelsclaims"
-
 )
 
 // UserRegister ....
@@ -19,11 +18,16 @@ func UserRegister(c echo.Context) (err error) {
 		return c.JSON(http.StatusInternalServerError, "somthing wrong please try again")
 	}
 	// data validation using ozzo-validation
-
-	// err = user.Validate()
-	// if err != nil {
-	// 	return c.String(http.StatusBadRequest, "the length must be between 5 and 50")
-	// }
+	u := models.User{
+		ID:       user.ID,
+		Username: user.Username,
+		Email:    user.Email,
+		Password: user.Password,
+	}
+	er := u.Validate()
+	if er != nil {
+		return c.String(http.StatusBadRequest, "the length must be between 5 and 50")
+	}
 	// Insert user into db
 	check, us := db.InsertUser(*user)
 	if check == false {
@@ -39,9 +43,8 @@ func UserLogin(c echo.Context) error {
 	userpassword := c.FormValue("Password")
 	exist, userinfo := db.CheckLogin(useremail, userpassword)
 	defer c.Request().Body.Close()
-	// Throws unauthorized error
 	if exist != true {
-		return c.JSON(http.StatusUnauthorized, "please try again or contact support")
+		return c.JSON(http.StatusUnauthorized, "something wrong")
 	}
 
 	t, err := jwtModelsClaims.JWTCreator(userinfo)

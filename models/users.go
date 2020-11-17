@@ -34,11 +34,11 @@ type User struct {
 	L userL  `boil:"-" json:"-" toml:"-" yaml:"-"`
 }
 
-func (user *User) Validate() error {
+func (user User) Validate() error {
 	return validation.ValidateStruct(&user,
-		// Street cannot be empty, and the length must between 5 and 50
-		validation.Field(&user.Username, validation.Required, validation.Length(5, 50)),
+		// Username cannot be empty, and the length must between 5 and 50
 		validation.Field(&user.Email, validation.Required, is.Email),
+		validation.Field(&user.Username, validation.Required, validation.Length(5, 50)),
 	)
 }
 
