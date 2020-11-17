@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	jwtModelsClaims "github.com/ismailraqi/echoSQLboiler/jwtmodelsclaims"
+
 	"github.com/ismailraqi/echoSQLboiler/handlers"
 	_ "github.com/ismailraqi/echoSQLboiler/statik"
 	"github.com/labstack/echo"
@@ -34,7 +36,15 @@ func StartRouters() {
 	e.POST("/pilot", handlers.CreatePilot)
 	e.DELETE("/pilot/:id", handlers.DeletePilot)
 	e.PUT("/pilot/:id", handlers.UpdatePilot)
-
+	e.POST("/register", handlers.UserRegister)
+	e.POST("/login", handlers.UserLogin)
+	r := e.Group("/restricted")
+	// Configure middleware with the custom claims type
+	config := middleware.JWTConfig{
+		Claims:     &jwtModelsClaims.JwtCustomClaims{},
+		SigningKey: []byte("secretToken"),
+	}
+	r.Use(middleware.JWTWithConfig(config))
 	statikFS, err := fs.New()
 	if err != nil {
 		log.Fatal(err)
